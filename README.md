@@ -42,15 +42,13 @@ Julius Albert Wirayuda
 After completing the profiling and refactoring process, I conducted a second round of performance testing using JMeter. Below is the comparison and reflection on the optimization journey.
 
 ### JMeter Performance Comparison
-Based on the JMeter results captured in the `README.md`, there is a **significant improvement** in application performance across all tested endpoints:
+Based on the JMeter result screenshoots, there is a significant improvement in application performance across all tested endpoints:
 
 1.  **`/all-student`**: This endpoint saw the most dramatic boost. By fixing the **N+1 query problem** (moving from multiple dependent database queries to a single `findAll()` on the `StudentCourse` repository), the response time dropped from several seconds to a few hundred milliseconds.
 2.  **`/all-student-name`**: By replacing manual String concatenation (`+=`) with Java Streams and `Collectors.joining()`, the CPU overhead and memory allocation for temporary String objects were significantly reduced, leading to higher throughput.
 3.  **`/highest-gpa`**: The transition to a Stream-based `max()` operation made the code more efficient and readable, resulting in faster execution under load.
 
 **Conclusion:** The optimizations successfully resolved the primary bottlenecks. The application now handles requests much faster and can support a higher number of concurrent users compared to the initial version.
-
----
 
 ## Reflection
 
